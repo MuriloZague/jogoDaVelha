@@ -25,6 +25,12 @@ let plays = 0
 let userSelecteds = [];
 let botSelecteds = [];
 
+const verificarVitoria = (array) => {
+    return winConditions.some(condition => {
+        return condition.every(box => array.includes(box.id));
+    });
+};
+
 const marcarQuadrado = (id) => {
     let box = document.getElementById(id)
     if (plays % 2 == 0) {
@@ -53,9 +59,3 @@ const marcarQuadrado = (id) => {
         return;
     }
 }
-
-const verificarVitoria = (array) => {
-    return winConditions.some(condition => {
-        return condition.every(box => array.includes(box.id));
-    });
-};
