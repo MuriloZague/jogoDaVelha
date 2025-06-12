@@ -8,6 +8,18 @@ let box7 = document.getElementById('7');
 let box8 = document.getElementById('8');
 let box9 = document.getElementById('9');
 
+const boxes = [
+    box1,
+    box2,
+    box3,
+    box4,
+    box5,
+    box6,
+    box7,
+    box8,
+    box9
+];
+
 const winConditions = [
     [box1, box2, box3],
     [box4, box5, box6],
@@ -31,31 +43,82 @@ const verificarVitoria = (array) => {
     });
 };
 
-const marcarQuadrado = (id) => {
+const marcarQuadrado = (id, isBot = false) => {
     let box = document.getElementById(id)
-    if (plays % 2 == 0) {
-        if (!box.classList.contains('selected-user' && 'selected-bot')) {
-            plays = plays + 1
-            box.classList.add('selected-user')
-            box.innerHTML = `<span>${user}</span>`
-            userSelecteds.push(id);
-            if (verificarVitoria(userSelecteds)){
-                alert("Usuário venceu!");
-                return;
-            }
-        }
+
+    if (box.classList.contains('selected-user') || box.classList.contains('selected-bot')){
         return;
+    }
+
+    if (!isBot){
+        box.innerHTML = `<span>${user}</span>`
+        box.classList.add('selected-user')
+        userSelecteds.push(id);
+        plays = plays + 1;
+        if (verificarVitoria(userSelecteds)){
+            setTimeout(() => alert('Usuário venceu!'), 100)
+            return;
+        }
+
+        if (plays >= 9){
+            setTimeout(() => alert('Empate!'), 100)
+            return;
+        }
+        botJoga()
     } else {
-        if (!box.classList.contains('selected-bot' && 'selected-user')) {
-            plays = plays + 1
-            box.classList.add('selected-bot')
-            box.innerHTML = `<span>${bot}</span>`
-            botSelecteds.push(id);
-            if (verificarVitoria(botSelecteds)){
-                alert("Bot venceu!");
-                return;
-            }
+        box.innerHTML = `<span>${bot}</span>`
+        box.classList.add('selected-bot')
+        botSelecteds.push(id);
+        plays = plays + 1;
+        if (verificarVitoria(botSelecteds)){
+            setTimeout(() => alert('BOT venceu!'), 100)
+            return;
         }
+    }
+}
+
+const botJoga = () => {
+    const available = boxes.filter(box =>
+        !box.classList.contains('selected-user') &&
+        !box.classList.contains('selected-bot')
+    );
+
+    if (available.length === 0){
         return;
+    }
+    
+    winConditions.forEach((condition) => {
+        const selected = condition.filter(id => botSelecteds.includes(id));
+        const empty = condition.filter(id => !botSelecteds.includes(id) && !userSelecteds.includes(id));
+        if (selected.length === 2 && empty.length === 1) {
+            marcarQuadrado(empty[0], true);
+            return;
+        }
+    });
+
+    winConditions.forEach((condition) => {
+        const selected = condition.filter(id => userSelecteds.includes(id));
+        const empty = condition.filter(id => !botSelecteds.includes(id) && !userSelecteds.includes(id));
+        if (selected.length === 2 && empty.length === 1) {
+            marcarQuadrado(empty[0], true);
+            return;
+        }
+    });
+
+
+    if (!userSelecteds.includes('5') && !botSelecteds.includes('5')) {
+        return marcarQuadrado('5', true);
+    }
+
+    const lados = ['2', '4', '6', '8'].filter(id => !userSelecteds.includes(id) && !botSelecteds.includes(id));
+    if (lados.length > 0) {
+        const escolhaLado = lados[Math.floor(Math.random() * lados.length)];
+        return marcarQuadrado(escolhaLado, true);
+    }
+
+    const picos = ['3', '1', '9', '7'].filter(id => !userSelecteds.includes(id) && !botSelecteds.includes(id));
+    if (picos.length > 0) {
+        const escolhaPico = picos[Math.floor(Math.random() * picos.length)];
+        return marcarQuadrado(escolhaPico, true);
     }
 }
