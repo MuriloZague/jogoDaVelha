@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
     
 <div class="parent">
-    <select name="" id="" >
+    <h1>User X Bot</h1>
+    <select name="" id="select">
         <option value="">-Selecione o tipo de Jogo-</option>
-        <option value="">JXJ</option>
-        <option value="">JXIA</option>
+        <option value="user.html">JXJ</option>
+        <option value="bot.html">JXIA</option>
     </select>
     <div>
         <button id="1" class="box" onclick="marcarQuadrado('1')">&nbsp;</button>
@@ -29,7 +30,7 @@
         <button id="8" class="box" onclick="marcarQuadrado('8')">&nbsp;</button>
         <button id="9" class="box" onclick="marcarQuadrado('9')">&nbsp;</button>
     </div>
-
-    <script src="script.js"></script>
+    <a href="bot.html"><button class="reset-btn">Reset Game</button></a>
+    <script src="./js/bot.js"></script>
 </body>
 </html>

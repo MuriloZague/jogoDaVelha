@@ -13,3 +13,13 @@ button {
     margin: 0.5rem;
     cursor: pointer;
 }
+
+.reset-btn {
+    font-size: 1.2rem;
+    height: 3rem;
+    margin-top: 4rem;
+}
+
+select {
+    margin-bottom: 3rem;
+}

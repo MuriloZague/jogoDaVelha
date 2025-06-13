@@ -1,3 +1,5 @@
+const tipoJogo = document.getElementById('select')
+
 let box1 = document.getElementById('1');
 let box2 = document.getElementById('2');
 let box3 = document.getElementById('3');
@@ -37,6 +39,14 @@ let plays = 0
 let userSelecteds = [];
 let botSelecteds = [];
 
+
+tipoJogo.addEventListener("change", (e) => {
+    const pagina = e.target.value;
+    if(pagina){
+        window.location.href = pagina
+    }
+})
+
 const verificarVitoria = (array) => {
     return winConditions.some(condition => {
         return condition.every(box => array.includes(box.id));
@@ -57,11 +67,17 @@ const marcarQuadrado = (id, isBot = false) => {
         plays = plays + 1;
         if (verificarVitoria(userSelecteds)){
             setTimeout(() => alert('Usuário venceu!'), 100)
+            document.querySelectorAll('.box').forEach(botao => {
+                    botao.disabled = true;
+                });
             return;
         }
 
         if (plays >= 9){
             setTimeout(() => alert('Empate!'), 100)
+            document.querySelectorAll('.box').forEach(botao => {
+                    botao.disabled = true;
+                });
             return;
         }
         botJoga()
@@ -72,6 +88,9 @@ const marcarQuadrado = (id, isBot = false) => {
         plays = plays + 1;
         if (verificarVitoria(botSelecteds)){
             setTimeout(() => alert('BOT venceu!'), 100)
+            document.querySelectorAll('.box').forEach(botao => {
+                    botao.disabled = true;
+                });
             return;
         }
     }
