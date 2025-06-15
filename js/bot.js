@@ -35,16 +35,33 @@ function marcarQuadrado(id) {
         });
         return;
     }
-    setTimeout(jogadaIA, 100);
+    jogadaBot()
 }
 
-function jogadaIA() {
+function encontrarMelhorJogada() {
+    let melhorPontuacao = -Infinity
+    let melhorJogada
+    for (let i = 0; i < 9; i++) {
+        if (tabuleiro[i] === '') {
+            tabuleiro[i] = 'O';
+            const pontuacao = minimax(tabuleiro, 0, false)
+            tabuleiro[i] = '';
+            if (pontuacao > melhorPontuacao) {
+                melhorPontuacao = pontuacao
+                melhorJogada = i
+            }
+        }
+    }
+    return melhorJogada
+}
+
+function jogadaBot() {
     const melhorJogada = encontrarMelhorJogada();
     tabuleiro[melhorJogada] = 'O';
     document.getElementById((melhorJogada + 1).toString()).textContent = 'O';
    
     if (verificarVencedor('O')) {
-        alert('IA venceu!')
+        alert('Bot venceu!')
         document.querySelectorAll('.box').forEach(botao => {
             botao.disabled = true;
         });
@@ -58,23 +75,6 @@ function jogadaIA() {
         });
         return;
     }
-}
-
-function encontrarMelhorJogada() {
-    let melhorPontuacao = -Infinity;
-    let melhorJogada;
-    for (let i = 0; i < 9; i++) {
-        if (tabuleiro[i] === '') {
-            tabuleiro[i] = 'O';
-            const pontuacao = minimax(tabuleiro, 0, false);
-            tabuleiro[i] = '';
-            if (pontuacao > melhorPontuacao) {
-                melhorPontuacao = pontuacao;
-                melhorJogada = i;
-            }
-        }
-    }
-    return melhorJogada;
 }
 
 function minimax(tabuleiroAtual, profundidade, ehMaximizador) {
