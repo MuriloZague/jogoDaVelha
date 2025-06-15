@@ -48,7 +48,7 @@ const marcarQuadrado = (id) => {
             userSelecteds.push(id);
 
             if (verificarVitoria(userSelecteds)){
-                alert("Usuário venceu!");
+                alert("Usuário 1 venceu!");
                 document.querySelectorAll('.box').forEach(botao => {
                     botao.disabled = true;
                 });
@@ -66,7 +66,7 @@ const marcarQuadrado = (id) => {
             user2Selecteds.push(id);
 
             if (verificarVitoria(user2Selecteds)){
-                alert("user2 venceu!");
+                alert("Usuário 2 venceu!");
                 document.querySelectorAll('.box').forEach(botao => {
                     botao.disabled = true;
                 });
