@@ -36,15 +36,11 @@ tipoJogo.addEventListener("change", (e) => {
 })
 
 const marcarQuadrado = (id) => {
-
     let box = document.getElementById(id)
-
     if (box.classList.contains('selected-user') || box.classList.contains('selected-bot')){
         return;
     }
-
     if (plays % 2 == 0) {
-        
         if (!box.classList.contains('selected-user' && 'selected-user2')) {
             plays = plays + 1
             box.classList.add('selected-user')
