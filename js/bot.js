@@ -13,7 +13,9 @@ tipoJogo.addEventListener("change", (e) => {
 })
 
 function marcarQuadrado(id) {
-    if (tabuleiro[id-1] !== '') return;
+    if (tabuleiro[id-1] !== ''){
+        return;
+    } 
 
     tabuleiro[id-1] = 'X';
     document.getElementById(id).textContent = 'X';
@@ -66,7 +68,6 @@ function encontrarMelhorJogada() {
             tabuleiro[i] = 'O';
             const pontuacao = minimax(tabuleiro, 0, false);
             tabuleiro[i] = '';
-            
             if (pontuacao > melhorPontuacao) {
                 melhorPontuacao = pontuacao;
                 melhorJogada = i;
@@ -77,9 +78,15 @@ function encontrarMelhorJogada() {
 }
 
 function minimax(tabuleiroAtual, profundidade, ehMaximizador) {
-    if (verificarVencedor('O')) return 10 - profundidade;
-    if (verificarVencedor('X')) return profundidade - 10;
-    if (verificarEmpate()) return 0;
+    if (verificarVencedor('O')){
+        return 10 - profundidade;
+    }
+    if (verificarVencedor('X')){
+        return profundidade - 10;
+    }
+    if (verificarEmpate()){
+        return 0;
+    }
     if (ehMaximizador) {
         let melhorPontuacao = -Infinity;
         for (let i = 0; i < 9; i++) {
