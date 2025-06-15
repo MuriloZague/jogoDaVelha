@@ -6,6 +6,7 @@ let jogadorAtual = 'X';
 const combinacoesVitoria = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
 
 tipoJogo.addEventListener("change", (e) => {
+    
     const pagina = e.target.value;
     if(pagina){
         window.location.href = pagina
@@ -13,10 +14,10 @@ tipoJogo.addEventListener("change", (e) => {
 })
 
 function marcarQuadrado(id) {
+
     if (tabuleiro[id-1] !== ''){
         return;
     } 
-
     tabuleiro[id-1] = 'X';
     document.getElementById(id).textContent = 'X';
 
@@ -39,6 +40,7 @@ function marcarQuadrado(id) {
 }
 
 function encontrarMelhorJogada() {
+
     let melhorPontuacao = -Infinity
     let melhorJogada
     for (let i = 0; i < 9; i++) {
@@ -56,6 +58,7 @@ function encontrarMelhorJogada() {
 }
 
 function jogadaBot() {
+
     const melhorJogada = encontrarMelhorJogada();
     tabuleiro[melhorJogada] = 'O';
     document.getElementById((melhorJogada + 1).toString()).textContent = 'O';
@@ -78,6 +81,7 @@ function jogadaBot() {
 }
 
 function minimax(tabuleiroAtual, profundidade, ehMaximizador) {
+
     if (verificarVencedor('O')){
         return 10 - profundidade;
     }
@@ -113,6 +117,7 @@ function minimax(tabuleiroAtual, profundidade, ehMaximizador) {
 }
 
 function verificarVencedor(jogador) {
+
     return combinacoesVitoria.some(combinacao => {
         return combinacao.every(index => {
             return tabuleiro[index] === jogador;
